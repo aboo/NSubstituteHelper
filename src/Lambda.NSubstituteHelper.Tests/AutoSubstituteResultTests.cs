@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Lambda.NSubstituteHelper.Tests.TestHelperModels;
 using NFluent;
 using Xunit;
 using NSubstitute;
@@ -61,7 +62,5 @@ namespace Lambda.NSubstituteHelper.Tests
 			// assert
 			Check.That(actual).Equals(expected);
 		}
-
-		public interface ITestService { }
 	}
 }
