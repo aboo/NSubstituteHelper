@@ -1,0 +1,14 @@
+﻿{
+	"$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+	"settings": {
+		"documentationRules": {
+			"companyName": "Lambda Solutions",
+			"copyrightText": "Developed under Apache-2.0 license"
+		},
+		"indentation": {
+			"useTabs": true,
+			"tabSize": 2,
+			"indentationSize": 2
+		}
+	}
+}

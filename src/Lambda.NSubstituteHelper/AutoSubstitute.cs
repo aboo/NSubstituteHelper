@@ -1,14 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-#if NETSTANDARD1_3
-using System.Reflection;
-#endif
+﻿// <copyright file="AutoSubstitute.cs" company="Lambda Solutions">
+// Developed under Apache-2.0 license
+// </copyright>
 
 namespace Lambda.NSubstituteHelper
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Reflection;
+
+#if NETSTANDARD1_3
+#pragma warning disable CS0105 // Using directive appeared previously in this namespace
+	using System.Reflection;
+#pragma warning restore CS0105 // Using directive appeared previously in this namespace
+#endif
+
+	/// <summary>
+	/// Defines Auto Substitute
+	/// </summary>
 	public class AutoSubstitute
 	{
 		private const string DependencyAttributeName = "DependencyAttribute";
@@ -20,7 +29,8 @@ namespace Lambda.NSubstituteHelper
 		/// <typeparam name="T">The type of the class to instantiate</typeparam>
 		/// <param name="constructorIndex">The index of the constructor to use for instantiation</param>
 		/// <returns>The substitute result including the instance as well as the substitute injections</returns>
-		public static AutoSubstitutedResult<T> For<T>(int constructorIndex = 0) where T : class
+		public static AutoSubstitutedResult<T> For<T>(int constructorIndex = 0)
+			where T : class
 		{
 			var result = new AutoSubstitutedResult<T>();
 
@@ -32,14 +42,13 @@ namespace Lambda.NSubstituteHelper
 			{
 				var type = parameter.ParameterType;
 				var dependencyName = GetDependencyName(parameter);
-				
 				var key = dependencyName ?? type.ToString();
 
-				var substitute = NSubstitute.Substitute.For(new[]
+				var substitute = NSubstitute.Substitute.For(
+					new[]
 				{
 					type
 				}, null);
-
 
 				parametersObjects.Add(substitute);
 
@@ -60,7 +69,10 @@ namespace Lambda.NSubstituteHelper
 			var attributes = parameter.GetCustomAttributes(true);
 			var dependencyAttribute = (from attribute in attributes let name = attribute.GetType().Name where name.Equals(DependencyAttributeName) select attribute).FirstOrDefault();
 
-			if (dependencyAttribute == null) return null; // there is no dependency attribute
+			if (dependencyAttribute == null)
+			{
+				return null; // there is no dependency attribute
+			}
 
 			var nameProperty = dependencyAttribute.GetType().GetProperty(DependencyPropertyName);
 			var dependencyName = nameProperty?.GetValue(dependencyAttribute) as string;

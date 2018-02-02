@@ -3,10 +3,16 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;net45;net462</TargetFrameworks>
 		<debugType>full</debugType>
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	  <DocumentationFile>bin\Release\netstandard1.3\BettingEdge.Common.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="NSubstitute" Version="2.0.3" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
   </ItemGroup>
 
+	<ItemGroup>
+		<AdditionalFiles Include="stylecop.json" />
+	</ItemGroup>
 </Project>
