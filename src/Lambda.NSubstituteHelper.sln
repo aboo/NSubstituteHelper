@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambda.NSubstituteHelper", "Lambda.NSubstituteHelper\Lambda.NSubstituteHelper.csproj", "{AA201A29-6426-463F-BFC8-C13232BC716D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lambda.NSubstituteHelper", "Lambda.NSubstituteHelper\Lambda.NSubstituteHelper.csproj", "{AA201A29-6426-463F-BFC8-C13232BC716D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambda.NSubstituteHelper.Tests", "Lambda.NSubstituteHelper.Tests\Lambda.NSubstituteHelper.Tests.csproj", "{DDB97B68-8D49-4C12-B7FE-570348F5122B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lambda.NSubstituteHelper.Tests", "Lambda.NSubstituteHelper.Tests\Lambda.NSubstituteHelper.Tests.csproj", "{DDB97B68-8D49-4C12-B7FE-570348F5122B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

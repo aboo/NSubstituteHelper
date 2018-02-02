@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;net45;net462</TargetFrameworks>
+		<debugType>full</debugType>
   </PropertyGroup>
 
 </Project>
