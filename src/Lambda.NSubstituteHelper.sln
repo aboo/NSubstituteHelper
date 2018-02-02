@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambda.NSubstituteHelper", "Lambda.NSubstituteHelper\Lambda.NSubstituteHelper.csproj", "{AA201A29-6426-463F-BFC8-C13232BC716D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambda.NSubstituteHelper.Tests", "Lambda.NSubstituteHelper.Tests\Lambda.NSubstituteHelper.Tests.csproj", "{DDB97B68-8D49-4C12-B7FE-570348F5122B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA201A29-6426-463F-BFC8-C13232BC716D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA201A29-6426-463F-BFC8-C13232BC716D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA201A29-6426-463F-BFC8-C13232BC716D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA201A29-6426-463F-BFC8-C13232BC716D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDB97B68-8D49-4C12-B7FE-570348F5122B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB97B68-8D49-4C12-B7FE-570348F5122B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB97B68-8D49-4C12-B7FE-570348F5122B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB97B68-8D49-4C12-B7FE-570348F5122B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {961AD7B8-32F0-4267-B08E-735F14C9BF50}
+	EndGlobalSection
+EndGlobal
