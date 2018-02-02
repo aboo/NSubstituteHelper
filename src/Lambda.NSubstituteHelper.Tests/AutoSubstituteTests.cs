@@ -85,5 +85,31 @@ namespace Lambda.NSubstituteHelper.Tests
 				var autoSubstituteResult = AutoSubstitute.For<TestModel>(constructorIndex);
 			}).ThrowsAny();
 		}
+
+		[Fact]
+		public void For_DoesntThrowsException_WhenMoreThatOneCopyOfSameInterfaceIsInjectedWithNameDependency()
+		{
+			// arrange 
+			const int constructorIndex = 3;
+
+			// act
+			Check.ThatCode(() =>
+			{
+				var autoSubstituteResult = AutoSubstitute.For<TestModel>(constructorIndex);
+			}).DoesNotThrow();
+		}
+
+		[Fact]
+		public void For_UsesTheType_WhenAWrongDependencyAttributeIsUsed()
+		{
+			// arrange 
+			const int constructorIndex = 4;
+
+			// act
+			Check.ThatCode(() =>
+			{
+				var autoSubstituteResult = AutoSubstitute.For<TestModel>(constructorIndex);
+			}).DoesNotThrow();
+		}
 	}
 }
