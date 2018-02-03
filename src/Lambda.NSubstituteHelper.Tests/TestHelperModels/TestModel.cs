@@ -1,4 +1,4 @@
-﻿using Unity = Microsoft.Practices.Unity;
+﻿using Dependency = Unity.Attributes;
 
 namespace Lambda.NSubstituteHelper.Tests.TestHelperModels
 {
@@ -28,7 +28,7 @@ namespace Lambda.NSubstituteHelper.Tests.TestHelperModels
 			TestService2 = testService2;
 		}
 
-		public TestModel([Unity.Dependency(FirstDependencyName)] ISecondService secondService, [Unity.Dependency(SecondDependencyName)]ISecondService secondService2)
+		public TestModel([Dependency.Dependency(FirstDependencyName)] ISecondService secondService, [Dependency.Dependency(SecondDependencyName)]ISecondService secondService2)
 		{
 			SecondService = secondService;
 			SecondService2 = secondService2;

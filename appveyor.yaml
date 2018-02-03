@@ -12,7 +12,7 @@ before_build:
   # Display .NET Core version
   - cmd: dotnet --version
   # Display minimal restore text
-  - cmd: dotnet restore ./src/Lambda.NSubstituteHelper.sln --verbosity m
+  - cmd: dotnet restore ./src/Lambda.NSubstituteHelper.sln --verbosity m --configfile src/NuGet.config
 build_script:
   - cmd: dotnet publish ./src/Lambda.NSubstituteHelper/Lambda.NSubstituteHelper.csproj
 after_build:

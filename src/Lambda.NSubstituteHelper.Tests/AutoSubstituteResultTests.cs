@@ -71,10 +71,7 @@ namespace Lambda.NSubstituteHelper.Tests
 			var autoSubstituteResult = AutoSubstitute.For<TestModel>(constructorIndex);
 
 			// act & assert
-			Check.ThatCode(() =>
-			{
-				var firstInstance = autoSubstituteResult.Get<ISecondService>();
-			}).ThrowsAny();
+			Check.ThatCode(() => { autoSubstituteResult.Get<ISecondService>(); }).ThrowsAny();
 		}
 
 		[Fact]
