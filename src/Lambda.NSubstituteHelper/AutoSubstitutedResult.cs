@@ -4,6 +4,7 @@
 
 namespace Lambda.NSubstituteHelper
 {
+	using System;
 	using System.Collections.Generic;
 
 	/// <summary>
@@ -27,11 +28,17 @@ namespace Lambda.NSubstituteHelper
 		/// Returns an instance of type T2
 		/// </summary>
 		/// <typeparam name="T2">The interface type of the instance</typeparam>
+		/// <param name="dependencyName">The name of the dependency in case multiple instances of the same interface are injected</param>
 		/// <returns>The instance</returns>
-		public T2 Get<T2>()
+		public T2 Get<T2>(string dependencyName = null)
 			where T2 : class
 		{
-			var key = typeof(T2).ToString();
+			var key = dependencyName ?? typeof(T2).ToString();
+			if (!Substitutes.ContainsKey(key))
+			{
+				throw new Exception("I cannot find an instance for the given interface. Try name dependency.");
+			}
+
 			var value = Substitutes[key];
 			return value as T2;
 		}

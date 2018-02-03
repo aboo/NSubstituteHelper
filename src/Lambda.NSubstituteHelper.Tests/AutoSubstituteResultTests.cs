@@ -62,5 +62,36 @@ namespace Lambda.NSubstituteHelper.Tests
 			// assert
 			Check.That(actual).Equals(expected);
 		}
+
+		[Fact]
+		public void Get_Throws_WhenKeyDoesntExist()
+		{
+			// arrange
+			const int constructorIndex = 3;
+			var autoSubstituteResult = AutoSubstitute.For<TestModel>(constructorIndex);
+
+			// act & assert
+			Check.ThatCode(() =>
+			{
+				var firstInstance = autoSubstituteResult.Get<ISecondService>();
+			}).ThrowsAny();
+		}
+
+		[Fact]
+		public void Get_WillReturnDifferentInstances_WhenCopiesOfSameInterfaceIsInjected()
+		{
+			// arrange
+			const string firstDependencyName = "first";
+			const string secondDependencyName = "second";
+			const int constructorIndex = 3;
+			var autoSubstituteResult = AutoSubstitute.For<TestModel>(constructorIndex);
+
+			// act
+			var firstInstance = autoSubstituteResult.Get<ISecondService>(firstDependencyName);
+			var secondService = autoSubstituteResult.Get<ISecondService>(secondDependencyName);
+
+			// assert
+			Check.That(firstInstance).Not.Equals(secondService);
+		}
 	}
 }
