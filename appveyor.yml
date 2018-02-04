@@ -1,0 +1,34 @@
+version: '1.0.{build}'
+image: Visual Studio 2017
+branches:
+  only:
+  - master
+init:
+  # Good practise, because Windows line endings are different from Unix/Linux ones
+  - cmd: git config --global core.autocrlf true
+install:
+  # Install repo specific stuff here
+before_build:
+  # Display .NET Core version
+  - cmd: dotnet --version
+  # Display minimal restore text
+  - cmd: dotnet restore ./src/Lambda.NSubstituteHelper.sln --verbosity m --configfile src/NuGet.config
+build_script:
+  - cmd: dotnet publish ./src/Lambda.NSubstituteHelper/Lambda.NSubstituteHelper.csproj --framework netstandard1.3
+  - cmd: dotnet publish ./src/Lambda.NSubstituteHelper/Lambda.NSubstituteHelper.csproj --framework net45
+  - cmd: dotnet publish ./src/Lambda.NSubstituteHelper/Lambda.NSubstituteHelper.csproj --framework net462
+after_build:
+  # For once the build has completed
+artifacts:
+  # artifacts
+clone_depth: 1
+test_script:
+  # restore packages for our unit tests
+  - cmd: dotnet restore ./src/Lambda.NSubstituteHelper.Tests/Lambda.NSubstituteHelper.Tests.csproj --verbosity m --configfile src/NuGet.config --packages src/packages
+  # run the unit tests (requires changing into the test directory)
+  - cmd: cd ./src
+  - packages\opencover\4.6.519\tools\OpenCover.Console.exe -register:user "-filter:+[Lambda*]* -[Lambda.NSubstituteHelper.Tests]*" "-target:%programfiles%/dotnet/dotnet.exe" "-targetargs:xunit -noshadow -appveyor" -output:".\MyProject_coverage.xml" -oldstyle "-targetdir:Lambda.NSubstituteHelper.Tests"
+  - packages\codecov\1.0.3\tools\codecov.exe -f .\MyProject_coverage.xml -t %token%
+on_finish :
+  # any cleanup in here
+deploy: off
