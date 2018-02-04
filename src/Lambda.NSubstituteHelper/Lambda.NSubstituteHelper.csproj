@@ -5,6 +5,8 @@
 		<debugType>full</debugType>
 	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 	  <DocumentationFile>bin\Release\netstandard1.3\BettingEdge.Common.xml</DocumentationFile>
+	  <Version>0.0.0</Version>
+	  <FileVersion>0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

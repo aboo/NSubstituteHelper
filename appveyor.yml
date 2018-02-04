@@ -8,19 +8,26 @@ init:
   - cmd: git config --global core.autocrlf true
 install:
   # Install repo specific stuff here
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
 before_build:
   # Display .NET Core version
   - cmd: dotnet --version
   # Display minimal restore text
   - cmd: dotnet restore ./src/Lambda.NSubstituteHelper.sln --verbosity m --configfile src/NuGet.config
 build_script:
-  - cmd: dotnet publish ./src/Lambda.NSubstituteHelper/Lambda.NSubstituteHelper.csproj --framework netstandard1.3
-  - cmd: dotnet publish ./src/Lambda.NSubstituteHelper/Lambda.NSubstituteHelper.csproj --framework net45
-  - cmd: dotnet publish ./src/Lambda.NSubstituteHelper/Lambda.NSubstituteHelper.csproj --framework net462
+  - cmd: dotnet publish ./src/Lambda.NSubstituteHelper/Lambda.NSubstituteHelper.csproj --framework netstandard1.3 --configuration Release
+  - cmd: dotnet publish ./src/Lambda.NSubstituteHelper/Lambda.NSubstituteHelper.csproj --framework net45 --configuration Release
+  - cmd: dotnet publish ./src/Lambda.NSubstituteHelper/Lambda.NSubstituteHelper.csproj --framework net462 --configuration Release
+  - cmd: nuget pack src\Lambda.NSubstituteHelper\Lambda.NSubstituteHelper.nuspec -version %APPVEYOR_BUILD_VERSION%
 after_build:
   # For once the build has completed
-artifacts:
-  # artifacts
 clone_depth: 1
 test_script:
   # restore packages for our unit tests
@@ -29,6 +36,11 @@ test_script:
   - cmd: cd ./src
   - packages\opencover\4.6.519\tools\OpenCover.Console.exe -register:user "-filter:+[Lambda*]* -[Lambda.NSubstituteHelper.Tests]*" "-target:%programfiles%/dotnet/dotnet.exe" "-targetargs:xunit -noshadow -appveyor" -output:".\MyProject_coverage.xml" -oldstyle "-targetdir:Lambda.NSubstituteHelper.Tests"
   - packages\codecov\1.0.3\tools\codecov.exe -f .\MyProject_coverage.xml -t %token%
+artifacts:
+  - path: '**\Lambda.NSubstituteHelper*.nupkg'
+nuget:
+  account_feed: true
+  project_feed: true
 on_finish :
   # any cleanup in here
 deploy: off

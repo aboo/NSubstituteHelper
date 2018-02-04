@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+	<metadata>
+		<id>Lambda.NSubstituteHelper</id>
+		<version>0.0.0</version>
+		<title>NSubstitute Helper</title>
+		<authors>Aboo Azarnoush</authors>
+		<owners>Lambda Solutions</owners>
+		<licenseUrl>https://github.com/aboo/NSubstituteHelper/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/aboo/NSubstituteHelper</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>This package includes a helper for Nsubstitute. This is developed based on our teams need and we will add to it as we continue using NSubstitute.</description>
+		<summary>This package includes a helper for Nsubstitute.</summary>
+		<tags>nsubstitute,substitute,test,unittest,helper</tags>
+		<dependencies>
+			<group targetFramework=".NETFramework4.5">
+				<dependency id="NSubstitute" version="3.1.0" exclude="Build,Analyzers" />
+			</group>
+			<group targetFramework=".NETFramework4.6.2">
+				<dependency id="NSubstitute" version="3.1.0" exclude="Build,Analyzers" />
+			</group>
+			<group targetFramework=".NETStandard1.3">
+				<dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+				<dependency id="NSubstitute" version="3.1.0" exclude="Build,Analyzers" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\netstandard1.3\Lambda.NSubstituteHelper.dll" target="lib\netstandard1.3"/>
+		<file src="bin\Release\net45\Lambda.NSubstituteHelper.dll" target="lib\net45"/>
+		<file src="bin\Release\net462\Lambda.NSubstituteHelper.dll" target="lib\net462"/>
+	</files>
+</package>
