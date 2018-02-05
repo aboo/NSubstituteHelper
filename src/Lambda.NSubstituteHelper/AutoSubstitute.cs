@@ -28,8 +28,9 @@ namespace Lambda.NSubstituteHelper
 		/// </summary>
 		/// <typeparam name="T">The type of the class to instantiate</typeparam>
 		/// <param name="constructorIndex">The index of the constructor to use for instantiation</param>
+		/// <param name="instancesToUse">The list of instances the needs to be used for injection rather than creating new instances</param>
 		/// <returns>The substitute result including the instance as well as the substitute injections</returns>
-		public static AutoSubstitutedResult<T> For<T>(int constructorIndex = 0)
+		public static AutoSubstitutedResult<T> For<T>(int constructorIndex = 0, Dictionary<string, object> instancesToUse = null)
 			where T : class
 		{
 			var result = new AutoSubstitutedResult<T>();
@@ -44,11 +45,19 @@ namespace Lambda.NSubstituteHelper
 				var dependencyName = GetDependencyName(parameter);
 				var key = dependencyName ?? type.ToString();
 
-				var substitute = NSubstitute.Substitute.For(
-					new[]
+				object substitute;
+				if (instancesToUse == null || !instancesToUse.ContainsKey(key))
 				{
-					type
-				}, null);
+					substitute = NSubstitute.Substitute.For(
+						new[]
+						{
+							type
+						}, null);
+				}
+				else
+				{
+					substitute = instancesToUse[key];
+				}
 
 				parametersObjects.Add(substitute);
 

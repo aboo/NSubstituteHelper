@@ -1,5 +1,7 @@
-﻿using Lambda.NSubstituteHelper.Tests.TestHelperModels;
+﻿using System.Collections.Generic;
+using Lambda.NSubstituteHelper.Tests.TestHelperModels;
 using NFluent;
+using NSubstitute;
 using Xunit;
 
 namespace Lambda.NSubstituteHelper.Tests
@@ -82,7 +84,7 @@ namespace Lambda.NSubstituteHelper.Tests
 			// act
 			Check.ThatCode(() =>
 			{
-				var autoSubstituteResult = AutoSubstitute.For<TestModel>(constructorIndex);
+				AutoSubstitute.For<TestModel>(constructorIndex);
 			}).ThrowsAny();
 		}
 
@@ -95,7 +97,7 @@ namespace Lambda.NSubstituteHelper.Tests
 			// act
 			Check.ThatCode(() =>
 			{
-				var autoSubstituteResult = AutoSubstitute.For<TestModel>(constructorIndex);
+				AutoSubstitute.For<TestModel>(constructorIndex);
 			}).DoesNotThrow();
 		}
 
@@ -108,8 +110,71 @@ namespace Lambda.NSubstituteHelper.Tests
 			// act
 			Check.ThatCode(() =>
 			{
-				var autoSubstituteResult = AutoSubstitute.For<TestModel>(constructorIndex);
+				AutoSubstitute.For<TestModel>(constructorIndex);
 			}).DoesNotThrow();
+		}
+
+		[Fact]
+		public void For_DotNotThrow_WhenInstancesToUseIsNull()
+		{
+			// arrange & arrange & assert
+			Check.ThatCode(() =>
+			{
+				AutoSubstitute.For<TestModel>();
+			}).DoesNotThrow();
+		}
+
+		[Fact]
+		public void For_DotNotThrow_WhenInstancesToUseIsNotNullAndInstanceIsNotProvided()
+		{
+			// arrange & arrange & assert
+			Check.ThatCode(() =>
+			{
+				AutoSubstitute.For<TestModel>(instancesToUse: new Dictionary<string, object>());
+			}).DoesNotThrow();
+		}
+
+		[Fact]
+		public void For_ReturnsPreDefinedInstance_WhenInstancesArePassed()
+		{
+			// arrange 
+			var expectedTestService = Substitute.For<ITestService>();
+			var instancesToUse = new Dictionary<string, object>
+			{
+				{typeof(ITestService).ToString(), expectedTestService}
+			};
+			var autoSubstituteResult = AutoSubstitute.For<TestModel>(instancesToUse: instancesToUse);
+
+			// act
+			var actualTestService = autoSubstituteResult.Get<ITestService>();
+
+			// assert
+			Check.That(actualTestService).Equals(expectedTestService);
+		}
+
+		[Fact]
+		public void For_ReturnsPreDefinedInstance_WhenInstancesArePassedWithDependencyName()
+		{
+			// arrange 
+			const string firstDependencyName = "first";
+			const string secondDependencyName = "second";
+			const int constructorIndex = 3;
+			var expectedFirstService = Substitute.For<ISecondService>();
+			var expectedSecondService = Substitute.For<ISecondService>();
+			var instancesToUse = new Dictionary<string, object>
+			{
+				{firstDependencyName, expectedFirstService},
+				{secondDependencyName, expectedSecondService }
+			};
+			var autoSubstituteResult = AutoSubstitute.For<TestModel>(instancesToUse: instancesToUse, constructorIndex: constructorIndex);
+
+			// act
+			var actualFirstService = autoSubstituteResult.Get<ISecondService>(firstDependencyName);
+			var actualSecondService = autoSubstituteResult.Get<ISecondService>(secondDependencyName);
+
+			// assert
+			Check.That(actualFirstService).Equals(expectedFirstService);
+			Check.That(actualSecondService).Equals(expectedSecondService);
 		}
 	}
 }
