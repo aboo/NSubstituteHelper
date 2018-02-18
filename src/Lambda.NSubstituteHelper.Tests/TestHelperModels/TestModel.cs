@@ -1,4 +1,5 @@
-﻿using Dependency = Unity.Attributes;
+﻿using System;
+using Dependency = Unity.Attributes;
 
 namespace Lambda.NSubstituteHelper.Tests.TestHelperModels
 {
@@ -18,6 +19,7 @@ namespace Lambda.NSubstituteHelper.Tests.TestHelperModels
 			SecondService = secondService;
 		}
 
+		// ReSharper disable once UnusedParameter.Local
 		public TestModel(ITestService testService)
 		{
 		}
@@ -37,6 +39,12 @@ namespace Lambda.NSubstituteHelper.Tests.TestHelperModels
 		public TestModel([Dependency] ISecondService secondService)
 		{
 			SecondService = secondService;
+		}
+
+		public virtual string TestMethod()
+		{
+			// This method is required to throw exception
+			throw new NotImplementedException();
 		}
 	}
 }

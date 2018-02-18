@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lambda.NSubstituteHelper.Tests.TestHelperModels;
 using NFluent;
 using NSubstitute;
@@ -175,6 +176,47 @@ namespace Lambda.NSubstituteHelper.Tests
 			// assert
 			Check.That(actualFirstService).Equals(expectedFirstService);
 			Check.That(actualSecondService).Equals(expectedSecondService);
+		}
+
+		[Fact]
+		public void ForPartsOf_ReturnsExpectedResult()
+		{
+			// arrange and act
+			var mockedModel = AutoSubstitute.ForPartsOf<TestModel>();
+
+			// assert
+			Check.That(mockedModel).IsNotNull();
+			Check.That(mockedModel.Target).IsNotNull();
+			Check.That(mockedModel).IsInstanceOf<AutoSubstitutedResult<TestModel>>();
+		}
+
+		[Fact]
+		public void ForPartsOf_ThrowsException_WhenPartsOfIsNotSetToNotCallBase()
+		{
+			// arrange
+			var mockedModel = AutoSubstitute.ForPartsOf<TestModel>();
+			var model = mockedModel.Target;
+
+			// act and assert
+			Check.ThatCode(() => model.TestMethod().Returns(string.Empty)).Throws<NotImplementedException>();
+		}
+
+		[Fact]
+		public void ForPartsOf_ReturnsTheMockedMethod_WhenCallingAVirtualMethod()
+		{
+			// arrange
+			const string expected = "the expected text";
+			var mockedModel = AutoSubstitute.ForPartsOf<TestModel>();
+			var model = mockedModel.Target;
+
+			model.When(x => x.TestMethod()).DoNotCallBase();
+			model.TestMethod().Returns(expected);
+
+			// act
+			var actual = model.TestMethod();
+
+			// assert
+			Check.That(expected).Equals(actual);
 		}
 	}
 }

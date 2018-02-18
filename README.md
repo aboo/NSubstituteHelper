@@ -27,13 +27,14 @@ Issues:
 
 Usually in order to avoid duplicate code developers put the initializer in one place and take care of all the dependencies and then share the reference. The issue there is that it will increase the unit test complexity.
 
-**AutoSubstitute** method is here to find out all the dependencies of a class and inject them automatically.
+**AutoSubstitute** is here to find out all the dependencies of a class and inject them automatically.
 
 Features:
 - will inject all the dependencies automatically
 - can use pre defined instances
 - supports [DependencyAttribute](https://msdn.microsoft.com/en-us/library/microsoft.practices.unity.dependencyattribute.aspx) for named injection 
 - choose constructor index
+- supports class substitute with **ForPartsOf<T>**
 
 Limitations:
 - the target class should only have interfaces injected into it
@@ -128,6 +129,28 @@ unit test
     var mockedModel = AutoSubstitute.For<TestModel>();
     var userRepository = mockedModel.Get<IRepositoryService>("users");
     var productRepository = mockedModel.Get<IRepositoryService>("products");
+
+#### Sample 5
+ForPartsOf
+
+class
+
+    public class TestModel
+    {
+        ...
+        public virtual string TestMethod(){
+            ...
+        }
+        ...
+    }
+
+unit test
+
+    var mockedModel = AutoSubstitute.ForPartsOf<TestModel>();
+    var model = mockedModek.Target;
+    model.When(x=>x.model.TestMethod()).DoNotCallBase();
+    model.TestMethod().Returns("random text");
+    var actual = model.TestMethod(); // returns "random text"
 
 ## How to contribute?
 - Fork the repository
