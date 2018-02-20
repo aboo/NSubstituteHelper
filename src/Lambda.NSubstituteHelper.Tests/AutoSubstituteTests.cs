@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Lambda.NSubstituteHelper.Tests.TestHelperModels;
 using NFluent;
 using NSubstitute;
@@ -214,6 +215,26 @@ namespace Lambda.NSubstituteHelper.Tests
 
 			// act
 			var actual = model.TestMethod();
+
+			// assert
+			Check.That(expected).Equals(actual);
+		}
+
+		[Fact]
+		public void ForPartsOf_Works_WhenCallingAnAsyncVirtualMethod()
+		{
+			// arrange
+			var expected = Task.FromResult<object>("the expected text");
+			var mockedModel = AutoSubstitute.ForPartsOf<TestModel>();
+			var model = mockedModel.Target;
+
+#pragma warning disable 4014
+			model.When(x => x.TestMethodAsync()).DoNotCallBase();
+#pragma warning restore 4014
+			model.TestMethodAsync().Returns(expected);
+
+			// act
+			var actual = model.TestMethodAsync();
 
 			// assert
 			Check.That(expected).Equals(actual);

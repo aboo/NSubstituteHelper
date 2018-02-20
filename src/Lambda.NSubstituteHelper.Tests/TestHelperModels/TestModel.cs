@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Dependency = Unity.Attributes;
 
 namespace Lambda.NSubstituteHelper.Tests.TestHelperModels
@@ -45,6 +46,12 @@ namespace Lambda.NSubstituteHelper.Tests.TestHelperModels
 		{
 			// This method is required to throw exception
 			throw new NotImplementedException();
+		}
+
+		public virtual async Task<object> TestMethodAsync()
+		{
+			// This method is required to return exception
+			return await Task.FromException<NotImplementedException>(new NotImplementedException());
 		}
 	}
 }
