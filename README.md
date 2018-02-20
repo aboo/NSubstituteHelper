@@ -148,7 +148,7 @@ unit test
 
     var mockedModel = AutoSubstitute.ForPartsOf<TestModel>();
     var model = mockedModek.Target;
-    model.When(x=>x.model.TestMethod()).DoNotCallBase();
+    model.When(x=>x.TestMethod()).DoNotCallBase();
     model.TestMethod().Returns("random text");
     var actual = model.TestMethod(); // returns "random text"
 
