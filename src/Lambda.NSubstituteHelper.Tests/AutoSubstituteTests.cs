@@ -117,6 +117,19 @@ namespace Lambda.NSubstituteHelper.Tests
 		}
 
 		[Fact]
+		public void For_DoesntThrowsException_WhenTwoDifferentInterfacesUseSameDependencyName()
+		{
+			// arrange 
+			const int constructorIndex = 5;
+
+			// act
+			Check.ThatCode(() =>
+			{
+				AutoSubstitute.For<TestModel>(constructorIndex);
+			}).DoesNotThrow();
+		}
+
+		[Fact]
 		public void For_DotNotThrow_WhenInstancesToUseIsNull()
 		{
 			// arrange & arrange & assert

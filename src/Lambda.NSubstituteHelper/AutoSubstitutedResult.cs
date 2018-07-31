@@ -36,7 +36,11 @@ namespace Lambda.NSubstituteHelper
 			var key = dependencyName ?? typeof(T2).ToString();
 			if (!Substitutes.ContainsKey(key))
 			{
-				throw new Exception("I cannot find an instance for the given interface. Try name dependency.");
+				key = $"{dependencyName}_{typeof(T2)}";
+				if (!Substitutes.ContainsKey(key))
+				{
+					throw new Exception("I cannot find an instance for the given interface. Try name dependency.");
+				}
 			}
 
 			var value = Substitutes[key];

@@ -83,6 +83,7 @@ namespace Lambda.NSubstituteHelper
 						{
 							type
 						}, null);
+					key = $"{dependencyName}_{type}";
 				}
 				else
 				{
