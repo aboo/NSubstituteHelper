@@ -73,7 +73,7 @@ namespace Lambda.NSubstituteHelper
 			{
 				var type = parameter.ParameterType;
 				var dependencyName = GetDependencyName(parameter);
-				var key = dependencyName ?? type.ToString();
+				var key = Utility.GetSimpleKey(type, dependencyName);
 
 				object substitute;
 				if (instancesToUse == null || !instancesToUse.ContainsKey(key))
@@ -83,7 +83,7 @@ namespace Lambda.NSubstituteHelper
 						{
 							type
 						}, null);
-					key = $"{dependencyName}_{type}";
+					key = Utility.GetCombinedKey(type, dependencyName);
 				}
 				else
 				{

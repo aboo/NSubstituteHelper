@@ -33,10 +33,10 @@ namespace Lambda.NSubstituteHelper
 		public T2 Get<T2>(string dependencyName = null)
 			where T2 : class
 		{
-			var key = dependencyName ?? typeof(T2).ToString();
+			var key = Utility.GetSimpleKey(typeof(T2), dependencyName);
 			if (!Substitutes.ContainsKey(key))
 			{
-				key = $"{dependencyName}_{typeof(T2)}";
+				key = Utility.GetCombinedKey(typeof(T2), dependencyName);
 				if (!Substitutes.ContainsKey(key))
 				{
 					throw new Exception("I cannot find an instance for the given interface. Try name dependency.");
