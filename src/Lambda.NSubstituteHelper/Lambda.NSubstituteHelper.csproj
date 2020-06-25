@@ -7,7 +7,15 @@
 	  <DocumentationFile>bin\Release\netstandard1.3\BettingEdge.Common.xml</DocumentationFile>
 	  <Version>0.0.0</Version>
 	  <FileVersion>0.0.0</FileVersion>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="NSubstitute" Version="3.1.0" />
