@@ -3,7 +3,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/cii48jqxij3saquu?svg=true)](https://ci.appveyor.com/project/aboo22424/nsubstitutehelper)
 
 
-[![codecov](https://codecov.io/gh/aboo/NSubstituteHelper/branch/master/graph/badge.svg)](https://codecov.io/gh/aboo/NSubstituteHelper)
+[![codecov](https://codecov.io/gh/aboo/NSubstituteHelper/branch/master/graph/badge.svg?token=NBYOmQklPZ)](https://codecov.io/gh/aboo/NSubstituteHelper)
 
 [![NuGet](https://img.shields.io/nuget/v/Lambda.NSubstituteHelper.svg)](https://www.nuget.org/packages/Lambda.NSubstituteHelper)
 
